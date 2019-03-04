@@ -1,0 +1,137 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package api;
+
+service BfdApi {
+  // Manage the overall server state
+  rpc Start(StartRequest) returns (google.protobuf.Empty);
+  rpc Stop(StopRequest)  returns (google.protobuf.Empty);
+
+  // Manage the peers of the bfd server
+  rpc AddPeer(AddPeerRequest) returns (AddPeerResponse);
+  rpc UpdatePeer(UpdatePeerRequest) returns (google.protobuf.Empty);
+  rpc DeletePeer(DeletePeerRequest) returns (google.protobuf.Empty);
+  rpc ListPeer(ListPeerRequest) returns (stream ListPeerResponse);
+
+  // Manage the state of the peers of the bfd server
+  rpc GetPeerState(GetPeerStateRequest)       returns (PeerStateResponse);
+  rpc MonitorPeer(MonitorPeerRequest) returns (stream PeerStateResponse);
+  rpc DisablePeer(DisablePeerRequest) returns (google.protobuf.Empty);
+  rpc EnablePeer(EnablePeerRequest)   returns (google.protobuf.Empty);
+}
+
+message StartRequest {
+  string  address = 1;
+  uint32  port = 2;
+}
+
+message StopRequest {
+
+}
+
+message AddPeerRequest {
+  Peer    peer = 1;
+}
+
+message AddPeerResponse {
+  bytes   uuid = 1;
+}
+
+message UpdatePeerRequest {
+  bytes   uuid = 1;
+  Peer    peer = 2;
+}
+
+message DeletePeerRequest {
+  bytes   uuid = 1;
+}
+
+message ListPeerRequest {
+}
+
+message ListPeerResponse {
+  bytes   uuid = 1;
+  Peer    peer = 2;
+}
+
+message GetPeerStateRequest {
+  bytes   uuid = 1;
+}
+
+message MonitorPeerRequest {
+  bytes   uuid = 1;
+}
+
+message PeerStateResponse {
+  PeerState local = 1;
+  PeerState remote = 2;
+}
+
+message DisablePeerRequest {
+  bytes uuid = 1;
+}
+
+message EnablePeerRequest {
+  bytes uuid = 1;
+}
+
+message Peer {
+  string name = 1;
+  string address = 2;
+  uint32 desired_min_tx_interval = 3;
+  uint32 required_min_rx_interval = 4;
+  uint32 detect_multiplier = 5;
+  bool   is_multi_hop = 6;
+  Authentication authentication = 7;
+}
+
+/*
+  Password can either start with
+  0x.... -> then it's hex
+  or be a string
+
+  SimplePassword = 16 bytes
+  MD5 = 16 bytes
+  SHA1 = 20 bytes
+*/
+message Authentication {
+  AuthenticationType type = 1;
+  string password = 2;
+}
+
+message PeerState {
+  SessionState state = 1;
+  DiagnosticCode diagnostic = 2;
+}
+
+enum SessionState {
+  ADMIN_DOWN = 0;
+  DOWN = 1;
+  INIT = 2;
+  UP = 3;
+}
+
+enum DiagnosticCode {
+  NO_DIAGNOSTIC = 0;
+  CONTROL_DETECTION_TIME_EXPIRED = 1;
+  ECHO_FUNCTION_FAILED = 2;
+  NEIGHBOR_SIGNALED_SESSION_DOWN = 3;
+  FORWARDING_PLANE_RESET = 4;
+  PATH_DOWN = 5;
+  CONCATENATED_PATH_DOWN = 6;
+  ADMINISTRATIVELY_DOWN = 7;
+  REVERSE_CONCATENATED_PATH_DOWN = 8;
+}
+
+enum AuthenticationType {
+  NONE = 0;             // called RESERVED in RFC5880
+  SIMPLE_PASSWORD = 1;
+  KEYED_MD5 = 2;
+  METICULOUS_KEYED_MD5 = 3;
+  KEYED_SHA1 = 4;
+  METICULOUS_KEYED_SHA1 = 5;
+}
+
+

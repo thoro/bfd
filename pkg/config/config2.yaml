@@ -1,0 +1,11 @@
+listen:
+- 0.0.0.0
+- 192.168.1.1
+
+peers:
+  172.17.0.2:
+    name: nessus
+    port: 3784
+    interval: 50
+    detectionMultiplier: 3
+
