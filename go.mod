@@ -6,10 +6,10 @@ require (
 	github.com/eapache/channels v1.1.0
 	github.com/eapache/queue v1.1.0 // indirect
 	github.com/go-yaml/yaml v2.1.0+incompatible
+	github.com/gofrs/uuid v4.0.0+incompatible
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/protobuf v1.3.0
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
-	github.com/satori/go.uuid v1.2.1-0.20181028125025-b2ce2384e17b
 	github.com/spf13/cobra v0.0.4-0.20190109003409-7547e83b2d85
 	github.com/spf13/pflag v1.0.3
 	golang.org/x/net v0.0.0-20190225153610-fe579d43d832
