@@ -4,13 +4,19 @@ GIT_VERSION=$(shell git describe --tags --dirty)
 GIT_COMMIT=$(shell git describe --always)
 BUILD_DATE?=$(shell date +%Y-%m-%dT%H:%M:%S%z)
 
-all: bfd
+all: bfd bfdd
 
-bfd: $(shell find . -name \*.go)
+bfdd: 
 	CGO_ENABLED=0 go build \
 	-ldflags "-X main.version=$(GIT_VERSION) -X main.buildDate=$(BUILD_DATE) -X main.commit=$(GIT_COMMIT) " \
 	-ldflags "-s -w" \
-	-o bfd github.com/Thoro/bfd/cmd/bfdd
+	-o bfdd github.com/Thoro/bfd/cmd/bfdd
+
+bfd: 
+	CGO_ENABLED=0 go build \
+        -ldflags "-X main.version=$(GIT_VERSION) -X main.buildDate=$(BUILD_DATE) -X main.commit=$(GIT_COMMIT) " \
+        -ldflags "-s -w" \
+        -o bfd github.com/Thoro/bfd/cmd/bfd
 
 fmt:
 	go fmt \
