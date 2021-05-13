@@ -22,13 +22,13 @@ var (
 
 func main() {
 	/*
-		PPROF
-	    f, err := os.Create("bfdd.prof")
-	    if err != nil {
-	        glog.Fatal(err)
-	    }
-	    pprof.StartCPUProfile(f)
-	    defer pprof.StopCPUProfile()
+			PPROF
+		    f, err := os.Create("bfdd.prof")
+		    if err != nil {
+		        glog.Fatal(err)
+		    }
+		    pprof.StartCPUProfile(f)
+		    defer pprof.StopCPUProfile()
 	*/
 
 	options := NewOptions()
