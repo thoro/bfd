@@ -11,10 +11,10 @@ import (
 
 	"google.golang.org/grpc"
 	"github.com/golang/glog"
-	"github.com/go-yaml/yaml"
 	"github.com/Thoro/bfd/pkg/api"
 	"github.com/Thoro/bfd/pkg/server"
 	"github.com/Thoro/bfd/pkg/config"
+	"gopkg.in/yaml.v2"
 )
 
 type BfdApp struct {
