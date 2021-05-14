@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	uuid "github.com/satori/go.uuid"
+	"github.com/gofrs/uuid"
 
 	"github.com/Thoro/bfd/pkg/api"
 	"github.com/Thoro/bfd/pkg/packet/bfd"
