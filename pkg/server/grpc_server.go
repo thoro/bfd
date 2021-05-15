@@ -119,7 +119,7 @@ func (a *BfdApiServer) DeletePeer(ctx context.Context, req *api.DeletePeerReques
 }
 
 func (a *BfdApiServer) ListPeer(req *api.ListPeerRequest, stream api.BfdApi_ListPeerServer) error {
-	ctx, cancel := context.WithCancel(context.Background())
+	ctx, cancel := context.WithCancel(stream.Context())
 	defer cancel()
 	var err error
 
